@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import "./App.css";
+import LiveBooking from "./components/liveBooking.js";
+import DataFetcher from "./components/allBookings";
+import Layout from "./components/layout";
+import Calendar from './components/calendar';
+import ErrorBoundary from "./errorBoundary"; // Import the ErrorBoundary component
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
+  console.log("App component rendered"); // Add this log statement
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <ErrorBoundary> {/* Wrap your entire application with ErrorBoundary */}
+        <Layout>
+          <Routes>
+            <Route path="/live" exact element={<LiveBooking />} />
+            <Route path="/all" element={<DataFetcher />} />
+            <Route path="/calendar" element={<Calendar />} />
+          </Routes>
+        </Layout>
+      </ErrorBoundary>
+    </Router>
   );
 }
 
